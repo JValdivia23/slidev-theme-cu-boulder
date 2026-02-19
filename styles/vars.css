@@ -48,9 +48,6 @@
   --cu-footer-text: var(--cu-gold);
   --cu-footer-page-color: var(--cu-gold-accessible);
 
-  /* Logo: use color logo on light slides, white-reversed logo on dark slides */
-  --cu-logo-src: url('/cu-logo.png');
-
   /* Slidev built-in overrides */
   --slidev-theme-primary:    var(--cu-gold);
   --slidev-theme-secondary:  var(--cu-dark-blue);
@@ -85,9 +82,6 @@
   --cu-footer-bg:   #0d0d0d;
   --cu-footer-text: var(--cu-gold);
   --cu-footer-page-color: var(--cu-gold);
-
-  /* White reversed logo on dark background */
-  --cu-logo-src: url('/cu-logo-rev.png');
 
   /* Slidev built-in overrides */
   --slidev-theme-primary:    var(--cu-gold);

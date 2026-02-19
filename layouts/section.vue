@@ -1,14 +1,13 @@
 <template>
-  <!-- Section divider slide — dark hero background, gold heading (always dark regardless of mode) -->
+  <!-- Section divider — always dark hero bg, always reversed logo -->
   <div class="slidev-layout section">
     <div>
       <slot />
     </div>
-    <!-- Footer -->
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        :src="logoRevUrl"
+        :src="$slidev.themeConfigs.logoRevUrl || defaultLogoRev"
         alt="CU Boulder"
         class="cu-logo"
       />
@@ -19,5 +18,7 @@
 </template>
 
 <script setup lang="ts">
-const logoRevUrl = new URL('../public/cu-logo-rev.png', import.meta.url).href;
+import { cuLogoRev } from '../setup/logos';
+
+const defaultLogoRev = cuLogoRev;
 </script>

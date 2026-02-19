@@ -15,11 +15,12 @@
         <p v-if="imageCaption" class="image-caption">{{ imageCaption }}</p>
       </div>
     </div>
-    <!-- Footer -->
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        :src="$slidev.colorSchema === 'dark' ? logoRevUrl : logoUrl"
+        :src="$slidev.colorSchema === 'dark'
+          ? ($slidev.themeConfigs.logoRevUrl || defaultLogoRev)
+          : ($slidev.themeConfigs.logoUrl || defaultLogo)"
         alt="CU Boulder"
         class="cu-logo"
       />
@@ -30,14 +31,16 @@
 </template>
 
 <script setup lang="ts">
+import { cuLogo, cuLogoRev } from '../setup/logos';
+
 defineProps<{
   image?: string;
   imageAlt?: string;
   imageCaption?: string;
 }>();
 
-const logoUrl = new URL('../public/cu-logo.png', import.meta.url).href;
-const logoRevUrl = new URL('../public/cu-logo-rev.png', import.meta.url).href;
+const defaultLogo = cuLogo;
+const defaultLogoRev = cuLogoRev;
 </script>
 
 <style scoped>
