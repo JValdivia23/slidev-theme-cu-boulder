@@ -47,23 +47,58 @@ Typography: **Noto Sans** (body), **Noto Serif** (display), **Noto Sans Mono** (
 
 ## Install
 
-Install directly from GitHub (no npm account needed):
+### Quick Start (Recommended)
+
+Create a new presentation folder with everything set up:
 
 ```bash
-npm install github:JValdivia23/slidev-theme-cu-boulder
-```
+# Create folder and initialize
+mkdir my-talk && cd my-talk
 
-Then set it in your slides frontmatter:
+# Create package.json with theme dependency
+cat > package.json << 'EOF'
+{
+  "name": "my-talk",
+  "dependencies": {
+    "slidev-theme-cu-boulder": "github:JValdivia23/slidev-theme-cu-boulder"
+  }
+}
+EOF
 
-```yaml
+# Install theme (one-time setup)
+npm install
+
+# Create your slides
+cat > slides.md << 'EOF'
 ---
 theme: cu-boulder
+title: My Presentation
 ---
+
+# Welcome
+
+Start your presentation here.
+EOF
+
+# Run
+slidev slides.md --open
 ```
 
-> Slidev will prompt you to install the theme automatically if it is not already installed.
+### One-liner Setup
 
-Or reference it locally (no install needed):
+For a minimal setup without copying files manually:
+
+```bash
+mkdir my-talk && cd my-talk && \
+echo '{"dependencies":{"slidev-theme-cu-boulder":"github:JValdivia23/slidev-theme-cu-boulder"}}' > package.json && \
+npm install && \
+echo -e '---\ntheme: cu-boulder\ntitle: My Talk\n---\n\n# Hello CU Boulder' > slides.md && \
+slidev slides.md --open
+```
+
+### Local Development (No npm)
+
+If you have the theme cloned locally:
 
 ```yaml
 ---
