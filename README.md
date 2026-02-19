@@ -1,21 +1,29 @@
 # slidev-theme-cu-boulder
 
-[![npm](https://img.shields.io/npm/v/slidev-theme-cu-boulder?color=CFB87C&label=npm)](https://www.npmjs.com/package/slidev-theme-cu-boulder)
-[![license](https://img.shields.io/npm/l/slidev-theme-cu-boulder)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/slidev-theme-cu-boulder.svg?style=flat&color=CFB87C)](https://www.npmjs.com/package/slidev-theme-cu-boulder)
+[![License: MIT](https://img.shields.io/badge/License-MIT-0A3758.svg)](./LICENSE)
+[![Slidev](https://img.shields.io/badge/Slidev-theme-CFB87C)](https://sli.dev)
 
-A [Slidev](https://sli.dev) theme following the official [University of Colorado Boulder brand guidelines](https://www.colorado.edu/imc/brand/visual-identity). Built for ATOC and A&O Sciences presentations, but usable across CU departments.
+A [Slidev](https://sli.dev) presentation theme following the official [University of Colorado Boulder brand guidelines](https://www.colorado.edu/imc/brand/visual-identity). Built for ATOC and A&O Sciences presentations, but usable across CU departments.
 
 ---
 
-## Preview
+## Demo
 
-| Slide type | Description |
-|---|---|
-| **Cover** | Dark blue background, CU Gold title, ATOC logo in footer |
-| **Default** | White background, CU Dark Blue heading with gold rule, branded footer |
-| **Section** | Dark blue divider slide with CU Gold heading |
-| **Two-cols** | Two-column content layout |
-| **Image-right** | Text left, figure right |
+- **Live example:** [jvaldivia23.github.io/slidev-theme-cu-boulder](https://jvaldivia23.github.io/slidev-theme-cu-boulder/)
+- **Source:** [example.md](./example.md) — "Top Reasons to Join ATOC for Graduate School"
+
+---
+
+## Screenshots
+
+<!-- Add screenshots here once the example is ready -->
+<!-- Suggested: export the example deck with `npm run screenshot` -->
+<!-- and place images in a `screenshots/` folder, then link them below -->
+
+| Cover | Content | Section |
+|---|---|---|
+| _(screenshot coming soon)_ | _(screenshot coming soon)_ | _(screenshot coming soon)_ |
 
 ---
 
@@ -25,14 +33,14 @@ A [Slidev](https://sli.dev) theme following the official [University of Colorado
 |---|---|---|
 | CU Gold | `#CFB87C` | Primary accent, heading rules, footer text |
 | CU Black | `#000000` | Body text |
-| CU Dark Blue | `#0A3758` | Headings, cover/section background, footer background |
+| CU Dark Blue | `#0A3758` | Headings, cover/section bg, footer bg |
 | CU Dark Gray | `#565A5C` | Muted text |
 | CU Light Gray | `#A2A4A3` | Borders, subtle elements |
 | Accessible CU Gold | `#8D7334` | Text on white backgrounds |
 | CUB Sky Blue | `#096FAE` | Links, call-to-action |
-| CUB Light Gold | `#F3F0E9` | Surface/code background |
+| CUB Light Gold | `#F3F0E9` | Surface / code background |
 
-Typography: **Noto Sans** (body), **Noto Serif** (display), **Noto Sans Mono** (code) — all freely available via Google Fonts and loaded automatically.
+Typography: **Noto Sans** (body), **Noto Serif** (display), **Noto Sans Mono** (code) — freely available via Google Fonts, loaded automatically.
 
 ---
 
@@ -42,7 +50,17 @@ Typography: **Noto Sans** (body), **Noto Serif** (display), **Noto Sans Mono** (
 npm install slidev-theme-cu-boulder
 ```
 
-Or use it locally (no install needed):
+Then set it in your slides frontmatter:
+
+```yaml
+---
+theme: cu-boulder
+---
+```
+
+> Slidev will prompt you to install the theme automatically if it is not already installed.
+
+Or reference it locally (no install needed):
 
 ```yaml
 ---
@@ -67,7 +85,7 @@ themeConfig:
 
 ## Subtitle
 
-<coverAuthor>Jairo M. Valdivia</coverAuthor>
+<coverAuthor>Your Name</coverAuthor>
 <coverDate>Spring 2026</coverDate>
 ```
 
@@ -75,11 +93,27 @@ themeConfig:
 
 | Layout | Description |
 |---|---|
-| `cover` | Title slide (dark blue, gold heading, author/date) |
-| `default` | Standard content slide |
-| `section` | Section divider (dark blue) |
-| `two-cols` | Two-column layout — use `::right::` to split |
-| `image-right` | Text left, image right — set `image:` in frontmatter |
+| `cover` | Title slide — dark blue bg, CU Gold heading, author/date, logo in footer |
+| `default` | Standard content slide — white bg, CU Dark Blue h1 with gold rule |
+| `section` | Section divider — dark blue bg, CU Gold heading |
+| `two-cols` | Two-column layout — use `::right::` to split content |
+| `image-right` | Text left, image right — set `image:` in slide frontmatter |
+
+### `two-cols` example
+
+```markdown
+---
+layout: two-cols
+---
+
+# Side by Side
+
+Left column content here.
+
+::right::
+
+Right column content here.
+```
 
 ### `image-right` example
 
@@ -97,28 +131,12 @@ imageAlt: "Contour plot of theta"
 - Finding B
 ```
 
-### `two-cols` example
-
-```markdown
----
-layout: two-cols
----
-
-# Side by Side
-
-Left side content here.
-
-::right::
-
-Right side content here.
-```
-
 ### `themeConfig` options
 
 | Key | Type | Default | Description |
 |---|---|---|---|
 | `showLogo` | `boolean` | `true` | Show ATOC logo in footer |
-| `department` | `string` | `''` | Department name shown in footer |
+| `department` | `string` | `''` | Department name shown in footer center |
 
 ---
 
@@ -132,24 +150,17 @@ npm install
 npm run dev
 ```
 
----
-
-## Publishing
-
-This theme follows the [Slidev theme publishing conventions](https://sli.dev/guide/write-theme#publishing):
-
-- Package name starts with `slidev-theme-`
-- Keywords include `slidev-theme` and `slidev`
-- No compilation required — `.vue` and `.ts` files are published directly
+To export PNG screenshots of all slides:
 
 ```bash
-npm publish --access public
+npm install playwright-chromium
+npm run screenshot
 ```
 
 ---
 
 ## License
 
-MIT — © Jairo M. Valdivia
+[MIT](./LICENSE) — © Jairo M. Valdivia
 
-CU Boulder and ATOC logos are property of the Regents of the University of Colorado and are used here in accordance with [CU's trademark policy](https://www.colorado.edu/about/legal-trademarks). This theme is not an official product of the University of Colorado.
+CU Boulder and ATOC logos are property of the Regents of the University of Colorado and are used in accordance with [CU's trademark policy](https://www.colorado.edu/about/legal-trademarks). This theme is not an official product of the University of Colorado.

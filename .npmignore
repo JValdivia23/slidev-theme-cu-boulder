@@ -1,0 +1,6 @@
+# Exclude development and build artifacts from npm package
+node_modules/
+dist/
+*.tgz
+.DS_Store
+screenshots/

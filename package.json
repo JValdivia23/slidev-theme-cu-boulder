@@ -9,7 +9,7 @@
   "homepage": "https://github.com/JValdivia23/slidev-theme-cu-boulder",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JValdivia23/slidev-theme-cu-boulder"
+    "url": "git+https://github.com/JValdivia23/slidev-theme-cu-boulder.git"
   },
   "license": "MIT",
   "keywords": [
