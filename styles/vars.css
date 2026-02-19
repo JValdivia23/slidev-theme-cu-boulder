@@ -1,0 +1,39 @@
+/* CU Boulder Official Brand Colors
+ * Source: https://www.colorado.edu/imc/brand/visual-identity
+ *
+ * Primary Palette
+ */
+:root {
+  /* === PRIMARY PALETTE === */
+  --cu-gold:        #CFB87C;   /* CU Gold — Pantone 4525 C */
+  --cu-black:       #000000;   /* Black */
+  --cu-dark-gray:   #565A5C;   /* CU Dark Gray — Pantone 425 C */
+  --cu-light-gray:  #A2A4A3;   /* CU Light Gray — Pantone 422 C */
+
+  /* === SECONDARY PALETTE === */
+  --cu-gold-accessible: #8D7334; /* Accessible CU Gold — text on white only */
+  --cu-sky-blue:    #096FAE;   /* CUB Sky Blue — text/CTA accent */
+  --cu-light-gold:  #F3F0E9;   /* CUB Light Gold — warm off-white bg */
+  --cu-dark-blue:   #0A3758;   /* CUB Dark Blue */
+  --cu-light-blue:  #EEF5F8;   /* CUB Light Blue — very light bg */
+
+  /* === SLIDEV THEME TOKENS === */
+  --slidev-theme-primary:      var(--cu-gold);
+  --slidev-theme-secondary:    var(--cu-dark-blue);
+  --slidev-theme-accent:       var(--cu-sky-blue);
+  --slidev-theme-background:   #ffffff;
+  --slidev-theme-surface:      var(--cu-light-gold);
+  --slidev-theme-text:         var(--cu-black);
+  --slidev-theme-text-muted:   var(--cu-dark-gray);
+  --slidev-theme-border:       var(--cu-light-gray);
+
+  /* === FOOTER === */
+  --cu-footer-height:  3rem;
+  --cu-footer-bg:      var(--cu-dark-blue);
+  --cu-footer-text:    var(--cu-gold);
+  --cu-footer-logo-h:  1.8rem;
+
+  /* === HEADER ACCENT BAR === */
+  --cu-accent-bar-height: 4px;
+  --cu-accent-bar-color:  var(--cu-gold);
+}

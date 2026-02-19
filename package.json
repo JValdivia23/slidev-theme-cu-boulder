@@ -1,0 +1,49 @@
+{
+  "name": "slidev-theme-cu-boulder",
+  "description": "University of Colorado Boulder official brand theme for Slidev presentations",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jairo M. Valdivia",
+    "url": "https://github.com/JValdivia23"
+  },
+  "homepage": "https://github.com/JValdivia23/slidev-theme-cu-boulder",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JValdivia23/slidev-theme-cu-boulder"
+  },
+  "license": "MIT",
+  "keywords": [
+    "slidev",
+    "slidev-theme",
+    "slidev-theme-cu-boulder",
+    "cu-boulder",
+    "university-of-colorado",
+    "academic",
+    "atoc"
+  ],
+  "scripts": {
+    "dev": "slidev example.md --open",
+    "build": "slidev build example.md",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "slidev": ">=0.48.0"
+  },
+  "slidev": {
+    "colorSchema": "light",
+    "defaults": {
+      "fonts": {
+        "sans": "Noto Sans",
+        "serif": "Noto Serif",
+        "mono": "Noto Sans Mono",
+        "provider": "google"
+      },
+      "themeConfig": {
+        "showLogo": true,
+        "department": "Department of Atmospheric & Oceanic Sciences"
+      }
+    }
+  }
+}

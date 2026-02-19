@@ -1,0 +1,184 @@
+/* CU Boulder Theme — Layout Styles */
+@import './vars.css';
+
+/* ─── Global Typography ─────────────────────────────────── */
+.slidev-layout {
+  font-family: var(--slidev-font-sans, 'Noto Sans', Helvetica, Arial, sans-serif);
+  color: var(--slidev-theme-text);
+  background-color: var(--slidev-theme-background);
+}
+
+/* ─── Headings ───────────────────────────────────────────── */
+.slidev-layout h1 {
+  color: var(--cu-dark-blue);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  border-bottom: var(--cu-accent-bar-height) solid var(--cu-gold);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.slidev-layout h2 {
+  color: var(--cu-dark-blue);
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.slidev-layout h3 {
+  color: var(--cu-dark-gray);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* ─── Links ──────────────────────────────────────────────── */
+.slidev-layout a {
+  color: var(--cu-sky-blue);
+  text-decoration: none;
+}
+.slidev-layout a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Code ───────────────────────────────────────────────── */
+.slidev-layout code {
+  background: var(--cu-light-gold);
+  border-radius: 3px;
+  padding: 0.1em 0.3em;
+  font-size: 0.88em;
+  color: var(--cu-dark-blue);
+}
+
+/* ─── Cover Layout ───────────────────────────────────────── */
+.slidev-layout.cover {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  background-color: var(--cu-dark-blue);
+  color: #ffffff;
+  padding: 0;
+}
+
+.slidev-layout.cover .cover-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 4rem;
+  padding-bottom: 1rem;
+}
+
+.slidev-layout.cover h1 {
+  color: var(--cu-gold);
+  font-size: 2.8rem;
+  border-bottom-color: rgba(207, 184, 124, 0.4);
+}
+
+.slidev-layout.cover h2 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+.slidev-layout.cover p {
+  color: var(--cu-light-gray);
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+
+/* ─── Section Layout ─────────────────────────────────────── */
+.slidev-layout.section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--cu-dark-blue);
+  color: #ffffff;
+  padding: 3rem 4rem;
+  height: 100%;
+}
+
+.slidev-layout.section h1 {
+  color: var(--cu-gold);
+  font-size: 3rem;
+  border-bottom-color: rgba(207, 184, 124, 0.4);
+}
+
+.slidev-layout.section p {
+  color: var(--cu-light-gray);
+}
+
+/* ─── Default (content) Layout ───────────────────────────── */
+.slidev-layout.default {
+  padding: 1.5rem 3rem 1rem 3rem;
+  padding-bottom: calc(var(--cu-footer-height) + 0.5rem);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gold accent bar at top of content slides */
+.slidev-layout.default::before {
+  content: '';
+  display: block;
+  height: var(--cu-accent-bar-height);
+  background: var(--cu-gold);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* ─── Two-cols Layout ────────────────────────────────────── */
+.slidev-layout.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 1.5rem 3rem;
+  padding-bottom: calc(var(--cu-footer-height) + 0.5rem);
+}
+
+/* ─── Image-right Layout ─────────────────────────────────── */
+.slidev-layout.image-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 1.5rem 3rem;
+  padding-bottom: calc(var(--cu-footer-height) + 0.5rem);
+  align-items: start;
+}
+
+/* ─── Footer (rendered via global-bottom.vue) ────────────── */
+.cu-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--cu-footer-height);
+  background-color: var(--cu-footer-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 10;
+}
+
+.cu-footer img.cu-logo {
+  height: var(--cu-footer-logo-h);
+  width: auto;
+}
+
+.cu-footer .cu-footer-text {
+  color: var(--cu-footer-text);
+  font-size: 0.7rem;
+  font-family: var(--slidev-font-sans, 'Noto Sans', Helvetica, sans-serif);
+  opacity: 0.85;
+}
+
+.cu-footer .cu-footer-page {
+  color: var(--cu-gold-accessible);
+  font-size: 0.7rem;
+  font-family: var(--slidev-font-sans, 'Noto Sans', Helvetica, sans-serif);
+  min-width: 2.5rem;
+  text-align: right;
+}
