@@ -11,6 +11,7 @@ themeConfig:
 ## slidev-theme-cu-boulder
 
 <coverAuthor>Jairo M. Valdivia</coverAuthor>
+
 <coverDate>Spring 2026</coverDate>
 
 ---
@@ -60,7 +61,7 @@ $$
 ---
 layout: image-right
 image: /cu-logo-center.png
-imageCaption: "A&O Sciences — University of Colorado Boulder"
+imageCaption: "This is an image caption."
 ---
 
 # Image-Right Layout

@@ -34,8 +34,8 @@
   --cu-heading:     #000000;
   --cu-heading-h3:  var(--cu-dark-gray);
   --cu-link:        var(--cu-sky-blue);
-  --cu-code-bg:     var(--cu-light-gold);
-  --cu-code-text:   var(--cu-dark-blue);
+  --cu-code-bg:     #f0ece0;   /* inline code pill — warm light gold */
+  --cu-code-text:   #3b2f00;   /* dark amber — readable on light pill */
 
   /* Cover / section — dark even in light mode (brand intent: always dramatic) */
   --cu-hero-bg:     #000000;
@@ -72,8 +72,8 @@
   --cu-heading:     #ffffff;
   --cu-heading-h3:  var(--cu-light-gray);
   --cu-link:        var(--cu-gold);
-  --cu-code-bg:     #1a1a1a;
-  --cu-code-text:   var(--cu-gold);
+  --cu-code-bg:     #1e1e1e;   /* inline code pill in dark — VS Code bg */
+  --cu-code-text:   #d4d4d4;   /* VS Code default fg */
 
   /* Cover / section — same dramatic dark treatment */
   --cu-hero-bg:     #0d0d0d;

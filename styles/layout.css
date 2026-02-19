@@ -42,12 +42,24 @@
 }
 
 /* ─── Code ───────────────────────────────────────────────── */
-.slidev-layout code {
+/* Shiki (VS Code Dark+/Light+) handles syntax colors and block bg.
+   We only add structural chrome for inline code. */
+.slidev-layout code:not([class*='language-']) {
+  /* inline code: subtle pill */
   background: var(--cu-code-bg);
   border-radius: 3px;
-  padding: 0.1em 0.3em;
+  padding: 0.1em 0.35em;
   font-size: 0.88em;
   color: var(--cu-code-text);
+  font-family: var(--slidev-font-mono, 'Noto Sans Mono', monospace);
+}
+
+/* Shiki block code: let its own theme bg show, just add radius + slight scale */
+.slidev-layout .shiki {
+  border-radius: 6px;
+  font-size: 0.85em;
+  line-height: 1.6;
+  padding: 1em 1.2em !important;
 }
 
 /* ─── Cover Layout ───────────────────────────────────────── */
