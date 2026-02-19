@@ -21,6 +21,16 @@
     "academic",
     "atoc"
   ],
+  "files": [
+    "layouts",
+    "styles",
+    "components",
+    "public",
+    "setup",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "slidev example.md --open",
     "build": "slidev build example.md --base ./",
