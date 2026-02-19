@@ -47,8 +47,10 @@ Typography: **Noto Sans** (body), **Noto Serif** (display), **Noto Sans Mono** (
 
 ## Install
 
+Install directly from GitHub (no npm account needed):
+
 ```bash
-npm install slidev-theme-cu-boulder
+npm install github:JValdivia23/slidev-theme-cu-boulder
 ```
 
 Then set it in your slides frontmatter:
@@ -138,6 +140,14 @@ imageAlt: "Contour plot of theta"
 |---|---|---|---|
 | `showLogo` | `boolean` | `true` | Show CU Boulder logo in footer |
 | `department` | `string` | `''` | Department name shown in footer center |
+
+> **Logos are bundled with the theme.** You do not need to copy any logo files into your own project — Slidev automatically serves the theme's `public/` directory.
+>
+> To hide the logo entirely (e.g. for personal use without CU branding):
+> ```yaml
+> themeConfig:
+>   showLogo: false
+> ```
 
 ### Dark mode
 
