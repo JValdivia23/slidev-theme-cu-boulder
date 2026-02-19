@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "dev": "slidev example.md --open",
-    "build": "slidev build example.md",
+    "build": "slidev build example.md --base ./",
     "export": "slidev export example.md",
     "screenshot": "slidev export example.md --format png"
   },
