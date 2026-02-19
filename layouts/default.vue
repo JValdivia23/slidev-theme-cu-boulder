@@ -5,7 +5,7 @@
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        :src="$slidev.colorSchema === 'dark' ? '/cu-logo-rev.png' : '/cu-logo.png'"
+        :src="$slidev.colorSchema === 'dark' ? logoRevUrl : logoUrl"
         alt="CU Boulder"
         class="cu-logo"
       />
@@ -14,3 +14,8 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const logoUrl = new URL('../public/cu-logo.png', import.meta.url).href;
+const logoRevUrl = new URL('../public/cu-logo-rev.png', import.meta.url).href;
+</script>

@@ -60,7 +60,7 @@ $$
 
 ---
 layout: image-right
-image: /cu-logo-center.png
+image: ./cu-logo-center.png
 imageCaption: "This is an image caption."
 ---
 
