@@ -1,6 +1,5 @@
 # slidev-theme-cu-boulder
 
-[![npm version](https://img.shields.io/npm/v/slidev-theme-cu-boulder.svg?style=flat&color=CFB87C)](https://www.npmjs.com/package/slidev-theme-cu-boulder)
 [![License: MIT](https://img.shields.io/badge/License-MIT-0A3758.svg)](./LICENSE)
 [![Slidev](https://img.shields.io/badge/Slidev-theme-CFB87C)](https://sli.dev)
 
@@ -29,16 +28,18 @@ A [Slidev](https://sli.dev) presentation theme following the official [Universit
 
 ## Brand Colors
 
+Supports **light and dark mode** (`colorSchema: both`). Colors follow the official [CU Boulder primary palette](https://www.colorado.edu/imc/brand/visual-identity).
+
 | Name | Hex | Role |
 |---|---|---|
 | CU Gold | `#CFB87C` | Primary accent, heading rules, footer text |
-| CU Black | `#000000` | Body text |
-| CU Dark Blue | `#0A3758` | Headings, cover/section bg, footer bg |
-| CU Dark Gray | `#565A5C` | Muted text |
-| CU Light Gray | `#A2A4A3` | Borders, subtle elements |
+| CU Black | `#000000` | Body text (light mode), cover/section bg |
+| CU Dark Gray | `#565A5C` | Muted text, h3 |
+| CU Light Gray | `#A2A4A3` | Borders, muted text (dark mode) |
+| CU Dark Blue | `#0A3758` | Auxiliary accent (secondary palette) |
 | Accessible CU Gold | `#8D7334` | Text on white backgrounds |
-| CUB Sky Blue | `#096FAE` | Links, call-to-action |
-| CUB Light Gold | `#F3F0E9` | Surface / code background |
+| CUB Sky Blue | `#096FAE` | Links (light mode) |
+| CUB Light Gold | `#F3F0E9` | Code background surface (light mode) |
 
 Typography: **Noto Sans** (body), **Noto Serif** (display), **Noto Sans Mono** (code) — freely available via Google Fonts, loaded automatically.
 
@@ -93,9 +94,9 @@ themeConfig:
 
 | Layout | Description |
 |---|---|
-| `cover` | Title slide — dark blue bg, CU Gold heading, author/date, logo in footer |
-| `default` | Standard content slide — white bg, CU Dark Blue h1 with gold rule |
-| `section` | Section divider — dark blue bg, CU Gold heading |
+| `cover` | Title slide — always dark bg, CU Gold heading, author/date, logo in footer |
+| `default` | Standard content slide — white bg (light) / near-black bg (dark), black/white heading with gold rule |
+| `section` | Section divider — always dark bg, CU Gold heading |
 | `two-cols` | Two-column layout — use `::right::` to split content |
 | `image-right` | Text left, image right — set `image:` in slide frontmatter |
 
@@ -135,8 +136,21 @@ imageAlt: "Contour plot of theta"
 
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `showLogo` | `boolean` | `true` | Show ATOC logo in footer |
+| `showLogo` | `boolean` | `true` | Show CU Boulder logo in footer |
 | `department` | `string` | `''` | Department name shown in footer center |
+
+### Dark mode
+
+This theme supports both light and dark mode. Toggle it in the Slidev toolbar (press `D`) or set it in frontmatter:
+
+```yaml
+---
+theme: cu-boulder
+colorSchema: dark   # or 'light' or 'auto'
+---
+```
+
+Cover and section slides always use a dark background with CU Gold headings regardless of mode. Default, two-cols, and image-right slides flip between white (light) and near-black (dark) backgrounds.
 
 ---
 

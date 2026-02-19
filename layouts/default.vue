@@ -5,7 +5,7 @@
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        src="/cu-logo-rev.png"
+        :src="$slidev.colorSchema === 'dark' ? '/cu-logo-rev.png' : '/cu-logo.png'"
         alt="CU Boulder"
         class="cu-logo"
       />

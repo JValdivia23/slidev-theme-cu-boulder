@@ -1,6 +1,6 @@
 <template>
   <div class="slidev-layout cover">
-    <!-- Dark blue cover with gold accents -->
+    <!-- Dark hero cover with gold accents — always dark bg regardless of mode -->
     <div class="cover-content">
       <slot />
       <!-- Author / date row -->
@@ -10,7 +10,7 @@
         <span v-if="coverDate">{{ coverDate }}</span>
       </div>
     </div>
-    <!-- Footer with logo on cover -->
+    <!-- Footer with logo on cover — always dark bg, always use reversed (white) logo -->
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"

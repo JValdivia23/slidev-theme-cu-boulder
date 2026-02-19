@@ -17,7 +17,7 @@
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        src="/cu-logo-rev.png"
+        :src="$slidev.colorSchema === 'dark' ? '/cu-logo-rev.png' : '/cu-logo.png'"
         alt="CU Boulder"
         class="cu-logo"
       />
@@ -50,7 +50,7 @@ defineProps<{
 }
 .image-caption {
   font-size: 0.7rem;
-  color: var(--cu-dark-gray);
+  color: var(--cu-text-muted);
   margin-top: 0.4rem;
   text-align: center;
 }

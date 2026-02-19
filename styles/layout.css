@@ -4,13 +4,13 @@
 /* ─── Global Typography ─────────────────────────────────── */
 .slidev-layout {
   font-family: var(--slidev-font-sans, 'Noto Sans', Helvetica, Arial, sans-serif);
-  color: var(--slidev-theme-text);
-  background-color: var(--slidev-theme-background);
+  color: var(--cu-text);
+  background-color: var(--cu-bg);
 }
 
 /* ─── Headings ───────────────────────────────────────────── */
 .slidev-layout h1 {
-  color: var(--cu-dark-blue);
+  color: var(--cu-heading);
   font-size: 2.4rem;
   font-weight: 700;
   line-height: 1.15;
@@ -21,20 +21,20 @@
 }
 
 .slidev-layout h2 {
-  color: var(--cu-dark-blue);
+  color: var(--cu-heading);
   font-size: 1.7rem;
   font-weight: 600;
 }
 
 .slidev-layout h3 {
-  color: var(--cu-dark-gray);
+  color: var(--cu-heading-h3);
   font-size: 1.2rem;
   font-weight: 600;
 }
 
 /* ─── Links ──────────────────────────────────────────────── */
 .slidev-layout a {
-  color: var(--cu-sky-blue);
+  color: var(--cu-link);
   text-decoration: none;
 }
 .slidev-layout a:hover {
@@ -43,11 +43,11 @@
 
 /* ─── Code ───────────────────────────────────────────────── */
 .slidev-layout code {
-  background: var(--cu-light-gold);
+  background: var(--cu-code-bg);
   border-radius: 3px;
   padding: 0.1em 0.3em;
   font-size: 0.88em;
-  color: var(--cu-dark-blue);
+  color: var(--cu-code-text);
 }
 
 /* ─── Cover Layout ───────────────────────────────────────── */
@@ -55,8 +55,8 @@
   display: grid;
   grid-template-rows: 1fr auto;
   height: 100%;
-  background-color: var(--cu-dark-blue);
-  color: #ffffff;
+  background-color: var(--cu-hero-bg);
+  color: var(--cu-hero-text);
   padding: 0;
 }
 
@@ -69,22 +69,29 @@
 }
 
 .slidev-layout.cover h1 {
-  color: var(--cu-gold);
+  color: var(--cu-hero-heading);
   font-size: 2.8rem;
   border-bottom-color: rgba(207, 184, 124, 0.4);
 }
 
 .slidev-layout.cover h2 {
-  color: #ffffff;
+  color: var(--cu-hero-text);
   font-size: 1.4rem;
   font-weight: 400;
   margin-top: 0.5rem;
 }
 
 .slidev-layout.cover p {
-  color: var(--cu-light-gray);
+  color: var(--cu-hero-muted);
   font-size: 1rem;
   margin-top: 0.3rem;
+}
+
+/* ─── Cover meta (author / date row) ─────────────────────── */
+.slidev-layout.cover .cover-meta {
+  margin-top: 1.5rem;
+  color: var(--cu-hero-muted);
+  font-size: 0.95rem;
 }
 
 /* ─── Section Layout ─────────────────────────────────────── */
@@ -92,20 +99,20 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: var(--cu-dark-blue);
-  color: #ffffff;
+  background-color: var(--cu-hero-bg);
+  color: var(--cu-hero-text);
   padding: 3rem 4rem;
   height: 100%;
 }
 
 .slidev-layout.section h1 {
-  color: var(--cu-gold);
+  color: var(--cu-hero-heading);
   font-size: 3rem;
   border-bottom-color: rgba(207, 184, 124, 0.4);
 }
 
 .slidev-layout.section p {
-  color: var(--cu-light-gray);
+  color: var(--cu-hero-muted);
 }
 
 /* ─── Default (content) Layout ───────────────────────────── */
@@ -148,7 +155,7 @@
   align-items: start;
 }
 
-/* ─── Footer (rendered via global-bottom.vue) ────────────── */
+/* ─── Footer (rendered via layout footer divs) ───────────── */
 .cu-footer {
   position: absolute;
   bottom: 0;
@@ -176,7 +183,7 @@
 }
 
 .cu-footer .cu-footer-page {
-  color: var(--cu-gold-accessible);
+  color: var(--cu-footer-page-color);
   font-size: 0.7rem;
   font-family: var(--slidev-font-sans, 'Noto Sans', Helvetica, sans-serif);
   min-width: 2.5rem;

@@ -1,5 +1,5 @@
 <template>
-  <!-- Section divider slide — dark blue background, gold heading -->
+  <!-- Section divider slide — dark hero background, gold heading (always dark regardless of mode) -->
   <div class="slidev-layout section">
     <div>
       <slot />
