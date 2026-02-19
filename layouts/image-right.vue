@@ -1,17 +1,19 @@
 <template>
   <div class="slidev-layout image-right">
-    <div class="content">
-      <slot />
-    </div>
-    <div class="image-container">
-      <img
-        v-if="image"
-        :src="image"
-        :alt="imageAlt || ''"
-        class="slide-image"
-      />
-      <slot v-else name="right" />
-      <p v-if="imageCaption" class="image-caption">{{ imageCaption }}</p>
+    <div class="image-right-content">
+      <div class="content">
+        <slot />
+      </div>
+      <div class="image-container">
+        <img
+          v-if="image"
+          :src="image"
+          :alt="imageAlt || ''"
+          class="slide-image"
+        />
+        <slot v-else name="right" />
+        <p v-if="imageCaption" class="image-caption">{{ imageCaption }}</p>
+      </div>
     </div>
     <!-- Footer -->
     <div class="cu-footer">
@@ -36,6 +38,12 @@ defineProps<{
 </script>
 
 <style scoped>
+.image-right-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
 .image-container {
   display: flex;
   flex-direction: column;

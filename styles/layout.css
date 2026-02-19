@@ -6,6 +6,7 @@
   font-family: var(--slidev-font-sans, 'Noto Sans', Helvetica, Arial, sans-serif);
   color: var(--cu-text);
   background-color: var(--cu-bg);
+  position: relative;
 }
 
 /* ─── Headings ───────────────────────────────────────────── */
@@ -150,21 +151,16 @@
 
 /* ─── Two-cols Layout ────────────────────────────────────── */
 .slidev-layout.two-cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
   padding: 1.5rem 3rem;
   padding-bottom: calc(var(--cu-footer-height) + 0.5rem);
+  height: 100%;
 }
 
 /* ─── Image-right Layout ─────────────────────────────────── */
 .slidev-layout.image-right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
   padding: 1.5rem 3rem;
   padding-bottom: calc(var(--cu-footer-height) + 0.5rem);
-  align-items: start;
+  height: 100%;
 }
 
 /* ─── Footer (rendered via layout footer divs) ───────────── */

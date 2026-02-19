@@ -1,10 +1,12 @@
 <template>
   <div class="slidev-layout two-cols">
-    <div class="col-left">
-      <slot />
-    </div>
-    <div class="col-right">
-      <slot name="right" />
+    <div class="two-cols-content">
+      <div class="col-left">
+        <slot />
+      </div>
+      <div class="col-right">
+        <slot name="right" />
+      </div>
     </div>
     <!-- Footer -->
     <div class="cu-footer">
@@ -19,3 +21,11 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.two-cols-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+</style>
