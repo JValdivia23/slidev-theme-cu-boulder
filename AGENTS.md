@@ -97,21 +97,30 @@ Keep the brand surface unchanged:
   dependency and a dynamic import inside the component.
 - Do not add the component to the default preview or to `npm run build`.
 - Keep a separate demo, such as `examples/manim.md`, if a preview is needed.
+  Preview it with `npx slidev examples/manim.md --port 3031`, not `npm run dev`.
+  That file must set `theme: ../`, because Slidev resolves a relative theme from
+  the markdown file's directory.
 
-The intended component is `<CuManim>`. It records a manim-web `Player` sequence
-once, then seeks to the segment matching the current Slidev click. Each
-`scene.play()` or `scene.wait()` is one click, and seeking must work backward
-as well as forward.
+The intended component is `<CuManim>`. A pasted example keeps
+`new Scene(document.getElementById('container'), ...)`. Put that snippet inside
+the `construct` function; the import stays at the top of `<script setup>`.
+`<CuManim>` supplies `#container`, caps the canvas to its `width` and `height`
+props, and gates `scene.play()`. Do not use `Player.seek()`. It crashes on
+`MathTex` groups in manim-web 0.3.24.
 
-- Require a `steps` prop. Slidev counts clicks before the scene finishes
-  recording, so the component cannot discover the count in time. Render that
-  many hidden `v-click` markers so Space stays on the slide.
-- Warn when the recorded segment count does not match `steps`.
-- Keep the player canvas unfocused and block its pointer events. manim-web's
-  player listens for Space, arrows, and canvas clicks; those must not compete
+- Each `scene.play()` waits for the next Slidev click, then runs through the
+  real `Scene.play()` at its authored duration. `scene.wait()` does not consume
+  a click and does not sleep: the click is the pause.
+- `steps` must equal the number of `scene.play()` calls. Render that many hidden
+  `v-click` markers so Space stays on the slide. Slidev cannot discover the
+  count while the scene is still waiting.
+- Going backward restarts the scene and finishes earlier plays through the
+  normal play path with a tiny duration. Do not seek.
+- Keep the canvas unfocused and block its pointer events so it does not compete
   with Slidev navigation.
-- Hide the player's own control bar. Click steps are the interface.
-- PDF or PNG export can follow clicks only after the seek has rendered that
+- Do not rewrite an official manim-web example to avoid a library bug. Adapt
+  only the `new Scene(...)` setup, because `<CuManim>` owns the canvas.
+- PDF or PNG export can follow clicks only after the play has rendered that
   frame. Editable PowerPoint will still rasterize the canvas. Do not claim
   those exports are verified unless they have been checked.
 

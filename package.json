@@ -26,6 +26,7 @@
     "layouts",
     "styles",
     "components",
+    "examples",
     "public",
     "setup",
     "package.json",
@@ -46,7 +47,16 @@
     "@slidev/types": "^53.0.0"
   },
   "devDependencies": {
-    "@slidev/cli": "^53.0.0"
+    "@slidev/cli": "^53.0.0",
+    "manim-web": "^0.3.24"
+  },
+  "peerDependencies": {
+    "manim-web": "^0.3.24"
+  },
+  "peerDependenciesMeta": {
+    "manim-web": {
+      "optional": true
+    }
   },
   "slidev": {
     "colorSchema": "both",
