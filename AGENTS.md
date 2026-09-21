@@ -77,6 +77,44 @@ Development currently uses Slidev 53. The declared minimum Slidev version is
 0.48; do not assume the full range has been tested. Revisit compatibility when
 introducing APIs that require newer Slidev versions.
 
+## Beta: click-stepped manim-web
+
+This experiment lives only on `beta/cu-manim`. Do not merge it to `main`, and do
+not mention it in gallery materials, until it is explicitly promoted.
+
+It is a local convenience for presentations that already use this theme. It is
+not part of the CU brand, and it is not a Slidev core feature. Slidev expects
+separable behavior to be an addon. If this is shared beyond local talks, move
+it to `slidev-addon-manim` instead of growing the theme.
+
+Keep the brand surface unchanged:
+
+- Do not modify `layouts/`, `styles/`, `setup/logos.ts`, `setup/shiki.ts`,
+  `assets/`, `public/`, `example.md`, or the public README install and usage
+  sections for this experiment.
+- Do not add `manim-web` as a required dependency. A deck that never uses the
+  component must still install and build without it. Prefer an optional peer
+  dependency and a dynamic import inside the component.
+- Do not add the component to the default preview or to `npm run build`.
+- Keep a separate demo, such as `examples/manim.md`, if a preview is needed.
+
+The intended component is `<CuManim>`. It records a manim-web `Player` sequence
+once, then seeks to the segment matching the current Slidev click. Each
+`scene.play()` or `scene.wait()` is one click, and seeking must work backward
+as well as forward.
+
+- Require a `steps` prop. Slidev counts clicks before the scene finishes
+  recording, so the component cannot discover the count in time. Render that
+  many hidden `v-click` markers so Space stays on the slide.
+- Warn when the recorded segment count does not match `steps`.
+- Keep the player canvas unfocused and block its pointer events. manim-web's
+  player listens for Space, arrows, and canvas clicks; those must not compete
+  with Slidev navigation.
+- Hide the player's own control bar. Click steps are the interface.
+- PDF or PNG export can follow clicks only after the seek has rendered that
+  frame. Editable PowerPoint will still rasterize the canvas. Do not claim
+  those exports are verified unless they have been checked.
+
 ## Gallery preparation
 
 Before proposing gallery inclusion, verify installation from the distributable
