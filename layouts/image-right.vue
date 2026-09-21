@@ -10,6 +10,7 @@
           :src="image"
           :alt="imageAlt || ''"
           class="slide-image"
+          :style="{ backgroundColor: imageBackground, padding: imageBackground ? '1rem' : undefined }"
         />
         <slot v-else name="right" />
         <p v-if="imageCaption" class="image-caption">{{ imageCaption }}</p>
@@ -18,9 +19,7 @@
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        :src="$slidev.colorSchema === 'dark'
-          ? ($slidev.themeConfigs.logoRevUrl || defaultLogoRev)
-          : ($slidev.themeConfigs.logoUrl || defaultLogo)"
+        :src="$slidev.themeConfigs.logoRevUrl || $slidev.themeConfigs.logoUrl || defaultLogoRev"
         alt="CU Boulder"
         class="cu-logo"
       />
@@ -31,22 +30,24 @@
 </template>
 
 <script setup lang="ts">
-import { cuLogo, cuLogoRev } from '../setup/logos';
+import { cuLogoRev } from '../setup/logos';
 
 defineProps<{
   image?: string;
   imageAlt?: string;
+  imageBackground?: string;
   imageCaption?: string;
 }>();
 
-const defaultLogo = cuLogo;
 const defaultLogoRev = cuLogoRev;
 </script>
 
 <style scoped>
 .image-right-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  height: 100%;
   gap: 2rem;
   align-items: start;
 }
@@ -54,15 +55,20 @@ const defaultLogoRev = cuLogoRev;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  height: 100%;
+  min-height: 0;
 }
 .slide-image {
   max-width: 100%;
-  max-height: 70%;
+  max-height: 100%;
+  min-height: 0;
+  flex: 0 1 auto;
   object-fit: contain;
   border-radius: 4px;
 }
 .image-caption {
+  flex-shrink: 0;
   font-size: 0.7rem;
   color: var(--cu-text-muted);
   margin-top: 0.4rem;

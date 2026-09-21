@@ -1,4 +1,7 @@
-export default () => {
+import type { ShikiSetupReturn } from '@slidev/types'
+import { defineShikiSetup } from '@slidev/types'
+
+export default defineShikiSetup((): ShikiSetupReturn => {
   return {
     themes: {
       // VS Code's default themes — work in both light and dark mode
@@ -6,4 +9,4 @@ export default () => {
       light: 'light-plus',
     },
   }
-}
+})

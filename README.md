@@ -66,6 +66,9 @@ cat > package.json << 'EOF'
   },
   "dependencies": {
     "slidev-theme-cu-boulder": "github:JValdivia23/slidev-theme-cu-boulder"
+  },
+  "overrides": {
+    "floating-vue": "5.2.2"
   }
 }
 EOF
@@ -95,11 +98,17 @@ For a minimal setup without copying files manually:
 
 ```bash
 mkdir my-talk && cd my-talk && \
-echo '{"devDependencies":{"@slidev/cli":"^53.0.0"},"dependencies":{"slidev-theme-cu-boulder":"github:JValdivia23/slidev-theme-cu-boulder"}}' > package.json && \
+echo '{"devDependencies":{"@slidev/cli":"^53.0.0"},"dependencies":{"slidev-theme-cu-boulder":"github:JValdivia23/slidev-theme-cu-boulder"},"overrides":{"floating-vue":"5.2.2"}}' > package.json && \
 npm install && \
 echo -e '---\ntheme: cu-boulder\ntitle: My Talk\n---\n\n# Hello CU Boulder' > slides.md && \
 npx slidev slides.md --open
 ```
+
+### Slidev 53 compatibility
+
+The tested setup uses Slidev 53.0.0 with FloatingVue 5.2.2. FloatingVue 5.4.0 changes component internals that Twoslash 4.4.3 still accesses, causing `Failed to patch FloatingVue` at startup. Keep the `overrides` entry above in your presentation's root `package.json` until that integration is fixed upstream. npm does not apply overrides from an installed theme dependency.
+
+The declared minimum Slidev version is 0.48; the full supported range has not been tested.
 
 ### Using a Local Theme
 
@@ -119,6 +128,8 @@ theme: ./path/to/slidev-theme-cu-boulder
 ---
 theme: cu-boulder
 title: "My Talk Title"
+coverAuthor: "Your Name"
+coverDate: "Spring 2026"
 themeConfig:
   showLogo: true                                    # default: true
   department: "Department of Atmospheric & Oceanic Sciences"
@@ -127,9 +138,6 @@ themeConfig:
 # My Talk Title
 
 ## Subtitle
-
-<coverAuthor>Your Name</coverAuthor>
-<coverDate>Spring 2026</coverDate>
 ```
 
 ### Available Layouts
@@ -141,6 +149,8 @@ themeConfig:
 | `section` | Section divider — always dark bg, CU Gold heading |
 | `two-cols` | Two-column layout — use `::right::` to split content |
 | `image-right` | Text left, image right — set `image:` in slide frontmatter |
+
+Set `coverAuthor` and `coverDate` in the cover slide frontmatter to display the styled author/date row.
 
 ### `two-cols` example
 
@@ -166,6 +176,7 @@ layout: image-right
 image: ./figures/result.png
 imageCaption: "Figure 1: Potential temperature anomaly"
 imageAlt: "Contour plot of theta"
+imageBackground: white # optional backing for transparent figures or logos
 ---
 
 # Results
@@ -174,14 +185,18 @@ imageAlt: "Contour plot of theta"
 - Finding B
 ```
 
+The optional `imageBackground` accepts a CSS color and defaults to transparent. Use `white` for transparent artwork with dark lettering. It does not change the caption background or the `::right::` fallback slot.
+
 ### `themeConfig` options
 
 | Key | Type | Default | Description |
 |---|---|---|---|
 | `showLogo` | `boolean` | `true` | Show CU Boulder logo in footer |
-| `department` | `string` | `''` | Department name shown in footer center |
+| `department` | `string` | `'Department of Atmospheric & Oceanic Sciences'` | Department name shown in footer center |
+| `logoRevUrl` | `string` | Bundled reversed logo | Preferred footer logo; use artwork suitable for a dark background |
+| `logoUrl` | `string` | Unset | Custom footer logo fallback when `logoRevUrl` is not supplied |
 
-> **Logos are bundled with the theme.** You do not need to copy any logo files into your own project — Slidev automatically serves the theme's `public/` directory.
+> **Logos are bundled with the theme.** You do not need to copy any logo files into your own project — footer logos are imported and bundled by Vite, including when deployed under a subpath. All footers stay dark in both modes, so the default is the full-color reversed left-aligned logo. Custom footer logos should also have light lettering.
 >
 > To hide the logo entirely (e.g. for personal use without CU branding):
 > ```yaml

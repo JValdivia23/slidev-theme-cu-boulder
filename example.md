@@ -1,6 +1,8 @@
 ---
 theme: ./
 title: "CU Boulder Theme Demo"
+coverAuthor: "Jairo M. Valdivia"
+coverDate: "Spring 2026"
 themeConfig:
   showLogo: true
   department: "Department of Atmospheric & Oceanic Sciences"
@@ -9,10 +11,6 @@ themeConfig:
 # University of Colorado Boulder
 
 ## slidev-theme-cu-boulder
-
-<coverAuthor>Jairo M. Valdivia</coverAuthor>
-
-<coverDate>Spring 2026</coverDate>
 
 ---
 layout: default
@@ -23,11 +21,11 @@ layout: default
 This is how a standard content slide looks using the CU Boulder theme.
 
 - **CU Gold** `#CFB87C` — primary brand color
-- **CU Dark Blue** `#0A3758` — headings, footer, cover background
+- **CU Black** `#000000` — light-mode headings, footer, cover background
 - **CU Sky Blue** `#096FAE` — links and call-to-action accents
 - **Noto Sans** — primary body typeface (freely available via Google Fonts)
 
-> The gold rule under each heading and the dark blue footer with the ATOC logo
+> The gold rule under each heading and the dark footer with the ATOC logo
 > are applied automatically to every content slide.
 
 ---
@@ -61,6 +59,8 @@ $$
 ---
 layout: image-right
 image: ./cu-logo-center.png
+imageBackground: white
+imageAlt: "Atmospheric and Oceanic Sciences, University of Colorado Boulder"
 imageCaption: "This is an image caption."
 ---
 

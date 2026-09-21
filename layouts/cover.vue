@@ -12,7 +12,7 @@
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        :src="$slidev.themeConfigs.logoRevUrl || defaultLogoRev"
+        :src="$slidev.themeConfigs.logoRevUrl || $slidev.themeConfigs.logoUrl || defaultLogoRev"
         alt="CU Boulder"
         class="cu-logo"
       />

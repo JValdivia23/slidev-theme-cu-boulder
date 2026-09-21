@@ -1,6 +1,6 @@
 {
   "name": "slidev-theme-cu-boulder",
-  "description": "University of Colorado Boulder official brand theme for Slidev presentations",
+  "description": "Community Slidev theme inspired by University of Colorado Boulder branding",
   "version": "0.1.0",
   "author": {
     "name": "Jairo M. Valdivia",
@@ -42,6 +42,9 @@
     "node": ">=22.12.0",
     "slidev": ">=0.48.0"
   },
+  "dependencies": {
+    "@slidev/types": "^53.0.0"
+  },
   "devDependencies": {
     "@slidev/cli": "^53.0.0"
   },
@@ -59,5 +62,8 @@
         "department": "Department of Atmospheric & Oceanic Sciences"
       }
     }
+  },
+  "overrides": {
+    "floating-vue": "5.2.2"
   }
 }

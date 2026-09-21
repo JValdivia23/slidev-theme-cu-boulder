@@ -4,9 +4,7 @@
     <div class="cu-footer">
       <img
         v-if="$slidev.themeConfigs.showLogo !== false"
-        :src="$slidev.colorSchema === 'dark'
-          ? ($slidev.themeConfigs.logoRevUrl || defaultLogoRev)
-          : ($slidev.themeConfigs.logoUrl || defaultLogo)"
+        :src="$slidev.themeConfigs.logoRevUrl || $slidev.themeConfigs.logoUrl || defaultLogoRev"
         alt="CU Boulder"
         class="cu-logo"
       />
@@ -17,8 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { cuLogo, cuLogoRev } from '../setup/logos';
+import { cuLogoRev } from '../setup/logos';
 
-const defaultLogo = cuLogo;
 const defaultLogoRev = cuLogoRev;
 </script>
