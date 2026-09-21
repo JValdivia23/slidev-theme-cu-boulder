@@ -10,7 +10,7 @@ A [Slidev](https://sli.dev) presentation theme following the official [Universit
 ## Demo
 
 - **Live example:** [jvaldivia23.github.io/slidev-theme-cu-boulder](https://jvaldivia23.github.io/slidev-theme-cu-boulder/)
-- **Source:** [example.md](./example.md) — "Top Reasons to Join ATOC for Graduate School"
+- **Source:** [example.md](./example.md) — "CU Boulder Theme Demo"
 
 ---
 
@@ -47,6 +47,8 @@ Typography: **Noto Sans** (body), **Noto Serif** (display), **Noto Sans Mono** (
 
 ## Install
 
+Use Node.js 22.12+ (Node.js 24 LTS recommended).
+
 ### Quick Start (Recommended)
 
 Create a new presentation folder with everything set up:
@@ -59,6 +61,9 @@ mkdir my-talk && cd my-talk
 cat > package.json << 'EOF'
 {
   "name": "my-talk",
+  "devDependencies": {
+    "@slidev/cli": "^53.0.0"
+  },
   "dependencies": {
     "slidev-theme-cu-boulder": "github:JValdivia23/slidev-theme-cu-boulder"
   }
@@ -81,7 +86,7 @@ Start your presentation here.
 EOF
 
 # Run
-slidev slides.md --open
+npx slidev slides.md --open
 ```
 
 ### One-liner Setup
@@ -90,15 +95,15 @@ For a minimal setup without copying files manually:
 
 ```bash
 mkdir my-talk && cd my-talk && \
-echo '{"dependencies":{"slidev-theme-cu-boulder":"github:JValdivia23/slidev-theme-cu-boulder"}}' > package.json && \
+echo '{"devDependencies":{"@slidev/cli":"^53.0.0"},"dependencies":{"slidev-theme-cu-boulder":"github:JValdivia23/slidev-theme-cu-boulder"}}' > package.json && \
 npm install && \
 echo -e '---\ntheme: cu-boulder\ntitle: My Talk\n---\n\n# Hello CU Boulder' > slides.md && \
-slidev slides.md --open
+npx slidev slides.md --open
 ```
 
-### Local Development (No npm)
+### Using a Local Theme
 
-If you have the theme cloned locally:
+If you have the theme cloned locally, point your presentation at it (the Slidev CLI is still required):
 
 ```yaml
 ---
@@ -201,11 +206,13 @@ Cover and section slides always use a dark background with CU Gold headings rega
 
 ## Develop
 
+Use Node.js 22.12+ (Node.js 24 LTS recommended). The Slidev CLI is installed locally with the development dependencies.
+
 ```bash
 # Clone and preview the example deck
 git clone https://github.com/JValdivia23/slidev-theme-cu-boulder
 cd slidev-theme-cu-boulder
-npm install
+npm ci
 npm run dev
 ```
 
