@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useNav } from '@slidev/client'
 
 interface ClickController {
   host: HTMLElement
-  generation: number
+  abort: AbortController
+  settleThrough: number
   step: number
   pending: unknown[]
   playing: boolean
   scene: { dispose: () => void, add: (...mobjects: unknown[]) => unknown, render: () => void } | null
   clicks: () => number
-  settling: () => boolean
-  clearSettling: () => void
 }
 
 const controllers = new WeakMap<HTMLElement, ClickController>()
+const sceneControllers = new WeakMap<object, ClickController>()
 const containerStack: HTMLElement[] = []
 let patching: Promise<void> | null = null
 let lookupInstalled = false
@@ -42,7 +42,7 @@ const error = ref('')
 const { clicks } = useNav()
 
 let generation = 0
-let settling = false
+let activeController: ClickController | null = null
 let observer: MutationObserver | null = null
 
 function installLookup() {
@@ -61,83 +61,105 @@ function installPatches() {
   if (patching)
     return patching
   patching = (async () => {
-  const { Scene } = await import('manim-web')
-  const originalPlay = Scene.prototype.play
-  const originalWait = Scene.prototype.wait
-  originalAdd = Scene.prototype.add
+    const { Scene } = await import('manim-web')
+    const originalPlay = Scene.prototype.play
+    const originalWait = Scene.prototype.wait
+    originalAdd = Scene.prototype.add
 
-  function controllerFor(scene: { _container?: HTMLElement | null }) {
-    const container = scene._container
-    if (!container)
-      return null
-    const controller = controllers.get(container)
-    if (controller)
-      controller.scene = scene as ClickController['scene']
-    return controller
-  }
+    function controllerFor(scene: { _container?: HTMLElement | null }) {
+      // A disposed scene must never adopt a new run's controller on the same host.
+      const existing = sceneControllers.get(scene)
+      if (existing) {
+        existing.abort.signal.throwIfAborted()
+        return existing
+      }
+      const container = scene._container
+      if (!container)
+        return null
+      const controller = controllers.get(container)
+      if (controller) {
+        controller.abort.signal.throwIfAborted()
+        controller.scene = scene as ClickController['scene']
+        sceneControllers.set(scene, controller)
+      }
+      return controller
+    }
 
-  Scene.prototype.add = function (...mobjects: unknown[]) {
-    const controller = controllerFor(this)
-    if (!controller || controller.playing)
-      return originalAdd.apply(this, mobjects)
-    controller.pending.push(...mobjects)
-  }
+    Scene.prototype.add = function (...mobjects: unknown[]) {
+      const controller = controllerFor(this)
+      if (!controller || controller.playing)
+        return originalAdd.apply(this, mobjects)
+      controller.pending.push(...mobjects)
+      return this
+    }
 
-  Scene.prototype.wait = function (duration?: number) {
-    if (!controllerFor(this))
-      return originalWait.call(this, duration)
-    // The Slidev click is the pause.
-  }
+    Scene.prototype.wait = function (duration?: number) {
+      if (!controllerFor(this))
+        return originalWait.call(this, duration)
+      // The Slidev click is the pause.
+    }
 
-  Scene.prototype.play = async function (...animations: Array<{ duration?: number }>) {
-    const controller = controllerFor(this)
-    if (!controller)
-      return originalPlay.apply(this, animations)
-    const gen = controller.generation
-    const mine = ++controller.step
-    if (controller.clicks() < mine)
-      await waitForClick(controller, gen, mine)
-    if (controller.generation !== gen)
-      return
-    if (controller.pending.length)
-      originalAdd.apply(this, controller.pending.splice(0))
-    controller.playing = true
-    const instant = controller.settling() || controller.clicks() > mine
-    if (controller.clicks() === mine)
-      controller.clearSettling()
-    if (instant) {
-      for (const animation of animations) {
-        try {
-          Object.defineProperty(animation, 'duration', {
-            value: 0.001,
-            writable: true,
-            configurable: true,
-          })
-        }
-        catch {
-          // Keep the authored duration if the library seals it.
+    Scene.prototype.play = async function (...animations: Array<{ duration?: number }>) {
+      const controller = controllerFor(this)
+      if (!controller)
+        return originalPlay.apply(this, animations)
+      const mine = ++controller.step
+      if (controller.clicks() < mine)
+        await waitForClick(controller, mine)
+      controller.abort.signal.throwIfAborted()
+      if (controller.pending.length)
+        originalAdd.apply(this, controller.pending.splice(0))
+      controller.playing = true
+      const instant = mine <= controller.settleThrough
+      if (instant) {
+        for (const animation of animations) {
+          try {
+            Object.defineProperty(animation, 'duration', {
+              value: 0.001,
+              writable: true,
+              configurable: true,
+            })
+          }
+          catch {
+            // Keep the authored duration if the library seals it.
+          }
         }
       }
+      try {
+        const result = await originalPlay.apply(this, animations)
+        // dispose() resolves an in-flight play; stop the old construct here.
+        controller.abort.signal.throwIfAborted()
+        return result
+      }
+      finally {
+        controller.playing = false
+      }
     }
-    try {
-      return await originalPlay.apply(this, animations)
-    }
-    finally {
-      controller.playing = false
-    }
-  }
   })()
   return patching
 }
 
-function waitForClick(controller: ClickController, gen: number, step: number) {
-  return new Promise<void>((resolve) => {
+function waitForClick(controller: ClickController, step: number) {
+  const { signal } = controller.abort
+  return new Promise<void>((resolve, reject) => {
+    let frameId: number | null = null
+    const cancel = () => {
+      if (frameId !== null)
+        cancelAnimationFrame(frameId)
+      reject(signal.reason)
+    }
+    if (signal.aborted) {
+      cancel()
+      return
+    }
+    signal.addEventListener('abort', cancel, { once: true })
     const check = () => {
-      if (controller.generation !== gen || controller.clicks() >= step) {
+      if (controller.clicks() >= step) {
+        signal.removeEventListener('abort', cancel)
         resolve()
         return
       }
-      requestAnimationFrame(check)
+      frameId = requestAnimationFrame(check)
     }
     check()
   })
@@ -160,34 +182,41 @@ function fit() {
   box.style.height = `${height}px`
 }
 
-async function run() {
+function stopRun() {
+  const controller = activeController
+  if (!controller)
+    return
+  activeController = null
+  controller.abort.abort()
+  controller.scene?.dispose()
+  controllers.delete(controller.host)
+}
+
+async function run(settleThrough = clicks.value) {
   if (!host.value)
     return
   const gen = ++generation
-  const previous = controllers.get(host.value)
-  previous?.scene?.dispose()
+  stopRun()
   host.value.replaceChildren()
   error.value = ''
   const controller: ClickController = {
     host: host.value,
-    generation: gen,
+    abort: new AbortController(),
+    settleThrough,
     step: 0,
     pending: [],
     playing: false,
     scene: null,
     clicks: () => clicks.value,
-    settling: () => settling,
-    clearSettling: () => {
-      settling = false
-    },
   }
+  activeController = controller
   controllers.set(host.value, controller)
-  await installPatches()
-  if (gen !== generation || !host.value)
-    return
-  installLookup()
-  containerStack.push(host.value)
   try {
+    await installPatches()
+    if (gen !== generation || !host.value)
+      return
+    installLookup()
+    containerStack.push(host.value)
     const source = props.construct.toString()
     const plays = source.match(/\.play\s*\(/g)?.length ?? 0
     if (plays && plays !== props.steps) {
@@ -201,7 +230,7 @@ async function run() {
     containerStack.pop()
     fit()
     await result
-    if (gen !== generation)
+    if (gen !== generation || controller.abort.signal.aborted)
       return
     if (controller.pending.length && controller.scene && originalAdd) {
       originalAdd.apply(controller.scene, controller.pending.splice(0))
@@ -234,15 +263,13 @@ onMounted(() => {
 watch(clicks, (count, previous) => {
   if (previous == null || count >= previous)
     return
-  settling = true
-  void run()
+  void run(count)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   generation++
+  stopRun()
   if (host.value) {
-    controllers.get(host.value)?.scene?.dispose()
-    controllers.delete(host.value)
     const index = containerStack.lastIndexOf(host.value)
     if (index >= 0)
       containerStack.splice(index, 1)
