@@ -4,7 +4,7 @@
     <div>
       <slot />
     </div>
-    <CuFooter :config="$slidev.themeConfigs" :page="$slidev.nav.currentPage" :total="$slidev.nav.total" />
+    <CuFooter :config="$slidev.themeConfigs" :page="$slidev.nav.currentPage" :total="$slidev.nav.total" :go-to="$slidev.nav.go" />
   </div>
 </template>
 

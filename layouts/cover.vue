@@ -8,7 +8,7 @@
         <span v-if="coverDate">{{ coverDate }}</span>
       </div>
     </div>
-    <CuFooter :config="$slidev.themeConfigs" :page="$slidev.nav.currentPage" :total="$slidev.nav.total" cover />
+    <CuFooter :config="$slidev.themeConfigs" :page="$slidev.nav.currentPage" :total="$slidev.nav.total" :go-to="$slidev.nav.go" cover />
   </div>
 </template>
 

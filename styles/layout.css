@@ -246,6 +246,31 @@
   font-weight: 700;
 }
 
+.cu-footer .cu-footer-nav button {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.cu-footer .cu-footer-nav button:hover,
+.cu-footer .cu-footer-nav button:focus-visible {
+  color: var(--cu-gold);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.cu-footer .cu-footer-nav button:focus-visible {
+  outline: 2px solid var(--cu-gold);
+  outline-offset: 0.2rem;
+}
+
 .cu-footer .cu-footer-page {
   flex-shrink: 0;
   color: var(--cu-footer-page-color);

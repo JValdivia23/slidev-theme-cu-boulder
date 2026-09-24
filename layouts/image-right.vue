@@ -16,7 +16,7 @@
         <p v-if="imageCaption" class="image-caption">{{ imageCaption }}</p>
       </div>
     </div>
-    <CuFooter :config="$slidev.themeConfigs" :page="$slidev.nav.currentPage" :total="$slidev.nav.total" />
+    <CuFooter :config="$slidev.themeConfigs" :page="$slidev.nav.currentPage" :total="$slidev.nav.total" :go-to="$slidev.nav.go" />
   </div>
 </template>
 

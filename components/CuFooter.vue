@@ -12,9 +12,13 @@
           v-for="(section, index) in sections"
           :key="`${section.start}-${section.end}-${section.label}`"
           :class="{ 'is-current': index === activeIndex, 'is-complete': page > section.end }"
-          :aria-current="index === activeIndex ? 'step' : undefined"
         >
-          {{ section.label }}
+          <button
+            type="button"
+            :aria-current="index === activeIndex ? 'step' : undefined"
+            :aria-label="`Go to ${section.label}, slide ${section.start}`"
+            @click.stop="goTo(section.start)"
+          >{{ section.label }}</button>
         </li>
       </ol>
     </nav>
@@ -51,6 +55,7 @@ const props = withDefaults(defineProps<{
   config: FooterConfig;
   page: number;
   total: number;
+  goTo: (no: number) => void | Promise<void>;
   cover?: boolean;
 }>(), { cover: false });
 
