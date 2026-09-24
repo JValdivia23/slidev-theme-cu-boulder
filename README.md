@@ -193,8 +193,22 @@ The optional `imageBackground` accepts a CSS color and defaults to transparent. 
 |---|---|---|---|
 | `showLogo` | `boolean` | `true` | Show CU Boulder logo in footer |
 | `department` | `string` | `'Department of Atmospheric & Oceanic Sciences'` | Department name shown in footer center |
+| `footerNav` | `object` | Unset | Optional section tracker in place of the department name; see below |
 | `logoRevUrl` | `string` | Bundled reversed logo | Preferred footer logo; use artwork suitable for a dark background |
 | `logoUrl` | `string` | Unset | Custom footer logo fallback when `logoRevUrl` is not supplied |
+
+For a presentation with named sections, supply inclusive, 1-based slide ranges. The current section is highlighted, completed sections are marked, and slides outside the ranges show `outsideLabel` (or the department name if omitted). `pageNumberOnly` shows the current slide number instead of `current / total`, including on the cover. Without `footerNav`, the original footer is unchanged.
+
+```yaml
+themeConfig:
+  footerNav:
+    sections:
+      - { label: Introduction, start: 1, end: 6 }
+      - { label: Methods, start: 7, end: 10 }
+      - { label: Results, start: 11, end: 20 }
+    outsideLabel: Backup
+    pageNumberOnly: true
+```
 
 > **Logos are bundled with the theme.** You do not need to copy any logo files into your own project — footer logos are imported and bundled by Vite, including when deployed under a subpath. All footers stay dark in both modes, so the default is the full-color reversed left-aligned logo. Custom footer logos should also have light lettering.
 >

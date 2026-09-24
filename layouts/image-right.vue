@@ -16,21 +16,12 @@
         <p v-if="imageCaption" class="image-caption">{{ imageCaption }}</p>
       </div>
     </div>
-    <div class="cu-footer">
-      <img
-        v-if="$slidev.themeConfigs.showLogo !== false"
-        :src="$slidev.themeConfigs.logoRevUrl || $slidev.themeConfigs.logoUrl || defaultLogoRev"
-        alt="CU Boulder"
-        class="cu-logo"
-      />
-      <span class="cu-footer-text">{{ $slidev.themeConfigs.department || '' }}</span>
-      <span class="cu-footer-page">{{ $slidev.nav.currentPage }} / {{ $slidev.nav.total }}</span>
-    </div>
+    <CuFooter :config="$slidev.themeConfigs" :page="$slidev.nav.currentPage" :total="$slidev.nav.total" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { cuLogoRev } from '../setup/logos';
+import CuFooter from '../components/CuFooter.vue';
 
 defineProps<{
   image?: string;
@@ -39,7 +30,6 @@ defineProps<{
   imageCaption?: string;
 }>();
 
-const defaultLogoRev = cuLogoRev;
 </script>
 
 <style scoped>
