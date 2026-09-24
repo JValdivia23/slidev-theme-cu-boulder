@@ -6,7 +6,7 @@
       alt="CU Boulder"
       class="cu-logo"
     />
-    <nav v-if="sections.length && activeIndex >= 0" class="cu-footer-nav" aria-label="Presentation sections">
+    <nav v-if="!coverLogoOnly && sections.length && activeIndex >= 0" class="cu-footer-nav" aria-label="Presentation sections">
       <ol>
         <li
           v-for="(section, index) in sections"
@@ -22,10 +22,10 @@
         </li>
       </ol>
     </nav>
-    <span v-else class="cu-footer-text">
+    <span v-else-if="!coverLogoOnly" class="cu-footer-text">
       {{ sections.length ? config.footerNav?.outsideLabel || config.department || '' : config.department || '' }}
     </span>
-    <span class="cu-footer-page">{{ pageText }}</span>
+    <span v-if="!coverLogoOnly" class="cu-footer-page">{{ pageText }}</span>
   </div>
 </template>
 
@@ -48,6 +48,7 @@ interface FooterConfig {
     sections: FooterSection[];
     outsideLabel?: string;
     pageNumberOnly?: boolean;
+    hideOnCover?: boolean;
   };
 }
 
@@ -60,6 +61,7 @@ const props = withDefaults(defineProps<{
 }>(), { cover: false });
 
 const sections = computed(() => props.config.footerNav?.sections || []);
+const coverLogoOnly = computed(() => props.cover && props.config.footerNav?.hideOnCover === true);
 const activeIndex = computed(() => sections.value.findIndex(
   section => props.page >= section.start && props.page <= section.end,
 ));
