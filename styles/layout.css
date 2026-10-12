@@ -202,32 +202,36 @@
 .cu-footer .cu-footer-nav {
   flex: 1;
   min-width: 0;
+  align-self: stretch;
   font-family: var(--slidev-font-sans, 'Noto Sans', Helvetica, sans-serif);
 }
 
 .cu-footer .cu-footer-nav ol {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: 0.5rem;
+  height: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.cu-footer .cu-footer-nav li {
+.cu-footer .cu-footer-nav ol > li {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
   color: var(--cu-light-gray);
   font-size: 0.62rem;
   line-height: 1.1;
   white-space: nowrap;
 }
 
-.cu-footer .cu-footer-nav li::before {
+/* Keep the progress line inside the section button's full-height hit target. */
+.cu-footer .cu-footer-nav button::before {
   content: '';
   height: 2px;
+  flex-shrink: 0;
   background: var(--cu-dark-gray);
 }
 
@@ -236,8 +240,8 @@
   opacity: 0.7;
 }
 
-.cu-footer .cu-footer-nav li.is-complete::before,
-.cu-footer .cu-footer-nav li.is-current::before {
+.cu-footer .cu-footer-nav li.is-complete button::before,
+.cu-footer .cu-footer-nav li.is-current button::before {
   background: var(--cu-gold);
 }
 
@@ -248,9 +252,14 @@
 
 .cu-footer .cu-footer-nav button {
   appearance: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  height: 100%;
   border: 0;
   margin: 0;
-  padding: 0;
+  padding: 0 0.25rem;
   background: none;
   color: inherit;
   font: inherit;
@@ -268,12 +277,15 @@
 
 .cu-footer .cu-footer-nav button:focus-visible {
   outline: 2px solid var(--cu-gold);
-  outline-offset: 0.2rem;
+  outline-offset: -2px;
 }
 
 /* Keep Slidev's hover controls above the interactive footer, not over its buttons. */
 .slidev-slide-container:has(.cu-footer-nav) > .absolute.bottom-0.left-0 {
-  bottom: calc(var(--cu-footer-height) * var(--slidev-slide-scale, 1));
+  bottom: calc(
+    max(0px, (100% - var(--cu-rendered-slide-height, 100%)) / 2)
+    + var(--cu-footer-height) * var(--slidev-slide-scale, 1)
+  );
 }
 
 .cu-footer .cu-footer-page {

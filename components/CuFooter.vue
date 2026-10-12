@@ -1,5 +1,5 @@
 <template>
-  <div class="cu-footer">
+  <div ref="footer" class="cu-footer">
     <img
       v-if="config.showLogo !== false"
       :src="config.logoRevUrl || config.logoUrl || cuLogoRev"
@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { cuLogoRev } from '../setup/logos';
 
 interface FooterSection {
@@ -59,6 +59,20 @@ const props = withDefaults(defineProps<{
   goTo: (no: number) => void | Promise<void>;
   cover?: boolean;
 }>(), { cover: false });
+
+const footer = ref<HTMLElement>();
+
+onMounted(() => {
+  const content = footer.value?.closest<HTMLElement>('.slidev-slide-content');
+  const container = content?.closest<HTMLElement>('.slidev-slide-container');
+  if (!content || !container) return;
+
+  // Include letterboxing when positioning controls above the interactive footer.
+  container.style.setProperty(
+    '--cu-rendered-slide-height',
+    `calc(${content.offsetHeight}px * var(--slidev-slide-scale, 1))`,
+  );
+});
 
 const sections = computed(() => props.config.footerNav?.sections || []);
 const coverLogoOnly = computed(() => props.cover && props.config.footerNav?.hideOnCover === true);
