@@ -77,25 +77,25 @@ Development currently uses Slidev 53. The declared minimum Slidev version is
 0.48; do not assume the full range has been tested. Revisit compatibility when
 introducing APIs that require newer Slidev versions.
 
-## Beta: click-stepped manim-web
+## Click-stepped manim-web (promoted from `beta/cu-manim`)
 
-This experiment lives only on `beta/cu-manim`. Do not merge it to `main`, and do
-not mention it in gallery materials, until it is explicitly promoted.
+The manim-web experiment was promoted to `main`: `<CuManim>` and the footer
+section tracker (`themeConfig.footerNav`) are stable theme surface. Keep them
+working when changing layouts, styles, or footer code, and keep their README
+documentation aligned with the implementation.
 
-It is a local convenience for presentations that already use this theme. It is
-not part of the CU brand, and it is not a Slidev core feature. Slidev expects
-separable behavior to be an addon. If this is shared beyond local talks, move
-it to `slidev-addon-manim` instead of growing the theme.
+The pre-animation theme is preserved on the `basic` branch, which takes no
+new features and exists only as a reference for the early version.
 
-Keep the brand surface unchanged:
+Gallery submission is out of scope while the theme ships manim-web directly.
+Slidev expects separable behavior to be an addon; if gallery listing is ever
+revisited, move `<CuManim>` to `slidev-addon-manim` first and re-verify the
+checklist below.
 
-- Do not modify `layouts/`, `styles/`, `setup/logos.ts`, `setup/shiki.ts`,
-  `assets/`, `public/`, `example.md`, or the public README install and usage
-  sections for this experiment.
-- Do not add `manim-web` as a required dependency. A deck that never uses the
-  component must still install and build without it. Prefer an optional peer
-  dependency and a dynamic import inside the component.
-- Do not add the component to the default preview or to `npm run build`.
+`<CuManim>` remains an optional integration: a deck that never uses the
+component must still install and build without it. Keep `manim-web` an
+optional peer dependency with a dynamic import inside the component.
+Do not add the component to the default preview or to `npm run build`.
 - Keep a separate demo, such as `examples/manim.md`, if a preview is needed.
   Preview it with `npx slidev examples/manim.md --port 3031`, not `npm run dev`.
   That file must set `theme: ../`, because Slidev resolves a relative theme from

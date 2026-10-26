@@ -14,6 +14,16 @@ A [Slidev](https://sli.dev) presentation theme following the official [Universit
 
 ---
 
+## Branches
+
+- `main` (default) — the full theme, including click-stepped manim-web
+  animations (`<CuManim>`, see `examples/manim.md`) and the footer section
+  tracker (`themeConfig.footerNav`).
+- `basic` — the early theme without the animation features, preserved as a
+  reference.
+
+---
+
 ## Screenshots
 
 | Cover | Content | Section |
