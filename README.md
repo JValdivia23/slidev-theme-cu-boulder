@@ -16,13 +16,9 @@ A [Slidev](https://sli.dev) presentation theme following the official [Universit
 
 ## Screenshots
 
-<!-- Add screenshots here once the example is ready -->
-<!-- Suggested: export the example deck with `npm run screenshot` -->
-<!-- and place images in a `screenshots/` folder, then link them below -->
-
 | Cover | Content | Section |
 |---|---|---|
-| _(screenshot coming soon)_ | _(screenshot coming soon)_ | _(screenshot coming soon)_ |
+| ![Cover slide](./screenshots/cover.png) | ![Content slide](./screenshots/content.png) | ![Section divider](./screenshots/section.png) |
 
 ---
 
